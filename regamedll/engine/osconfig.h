@@ -82,6 +82,7 @@
 
 	// Deail with stupid macro in kernel.h
 	#undef __FUNCTION__
+	#define __declspec(x)
 #endif // _WIN32
 
 #include <string>

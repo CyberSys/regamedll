@@ -33,7 +33,6 @@
 #endif
 
 // Improved the hostages from CZero
-#include "hostage/hostage_improv.h"
 
 #define MAX_NODES			100
 #define MAX_HOSTAGES			12
@@ -79,6 +78,9 @@ enum HostageChatterType
 	HOSTAGE_CHATTER_DEATH_CRY,
 	NUM_HOSTAGE_CHATTER_TYPES,
 };
+
+#include "hostage/hostage_improv.h"
+
 
 extern CHostageManager *g_pHostages;
 extern int g_iHostageNumber;

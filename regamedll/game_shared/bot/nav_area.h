@@ -552,6 +552,10 @@ private:
 	}
 };
 
+extern CNavAreaGrid TheNavAreaGrid;
+
+
+
 class ShortestPathCost
 {
 public:
@@ -1170,6 +1174,5 @@ void GenerateNavigationAreaMesh();
 extern NavLadderList TheNavLadderList;
 extern HidingSpotList TheHidingSpotList;
 extern NavAreaList TheNavAreaList;
-extern CNavAreaGrid TheNavAreaGrid;
 
 #endif // NAV_AREA_H

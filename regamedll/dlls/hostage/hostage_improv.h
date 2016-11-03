@@ -36,6 +36,7 @@
 #include "hostage/hostage_states.h"
 
 class CHostage;
+
 enum HostageChatterType;
 
 // A Counter-Strike Hostage improved

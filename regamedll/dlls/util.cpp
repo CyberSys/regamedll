@@ -1628,6 +1628,7 @@ void CSaveRestoreBuffer::BufferRewind(int size)
 #ifndef _WIN32
 extern "C"
 {
+	#define _rotr _rotr_
 	inline unsigned _rotr(unsigned val, int shift)
 	{
 		register unsigned lobit;
