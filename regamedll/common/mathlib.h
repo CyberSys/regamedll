@@ -110,6 +110,7 @@ inline double M_sqrt(int value) {
 	return sqrt(value);
 }
 
+#if defined(__SSE__) || defined(_M_IX86_FP)
 inline float M_sqrt(float value) {
 	return _mm_cvtss_f32(_mm_sqrt_ss(_mm_load_ss(&value)));
 }
@@ -120,6 +121,14 @@ inline double M_sqrt(double value) {
 	_mm_store_sd(&ret, _mm_sqrt_sd(v, v));
 	return ret;
 }
+#else 
+inline float M_sqrt(float value) {
+	return sqrt(value);
+}
+inline double M_sqrt(double value) {
+	return sqrt(value);
+}
+#endif
 
 template<class T>
 inline void SWAP(T &first, T &second)
