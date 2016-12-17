@@ -11,7 +11,7 @@ LOCAL_MODULE_FILENAME = libserver_hardfp
 endif
 
 LOCAL_CFLAGS +=  -frtti -w -D_LINUX -DCLIENT_WEAPONS -D_access=access -D_vsnwprintf=vswprintf -Dstricmp=strcasecmp -D_strnicmp=strncasecmp -Dstrnicmp=strncasecmp -D_snprintf=snprintf -D_stricmp=strcasecmp -D_vsnprintf=vsnprintf -D_strdup=strdup -D_write=write -D_close=close \
-	-fno-exceptions -std=c++11 -DREGAMEDLL_FIXES -DREGAMEDLL_CHECKS -DREGAMEDLL_ADD -DDEDICATED -DREGAMEDLL_SELF -DREGAMEDLL_API -DCLIENT_WEAPONS -fpermissive -DAPP_VERSION="" -DAPP_COMMIT_TIME="" -DAPP_COMMIT_DATE="" -DAPP_COMMIT_SHA="" -DAPP_COMMIT_URL="" -DIGNORE_APPVERSION_H
+	-fno-exceptions -std=c++11 -DREGAMEDLL_FIXES -DREGAMEDLL_CHECKS -DREGAMEDLL_ADD -DDEDICATED -DREGAMEDLL_SELF -DREGAMEDLL_API -DCLIENT_WEAPONS -fpermissive -DAPP_VERSION=\"none\" -DAPP_COMMIT_TIME=\"none\" -DAPP_COMMIT_DATE=\"none\" -DAPP_COMMIT_SHA=\"none\" -DAPP_COMMIT_URL=\"none\" -DIGNORE_APPVERSION_H
 	
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/. \
 		    $(LOCAL_PATH)/.. \
@@ -44,7 +44,7 @@ wpn_shared/wpn_knife.cpp wpn_shared/wpn_m249.cpp wpn_shared/wpn_m3.cpp wpn_share
 wpn_shared/wpn_p228.cpp wpn_shared/wpn_p90.cpp wpn_shared/wpn_scout.cpp wpn_shared/wpn_sg550.cpp wpn_shared/wpn_sg552.cpp wpn_shared/wpn_smokegrenade.cpp \
 wpn_shared/wpn_tmp.cpp wpn_shared/wpn_ump45.cpp wpn_shared/wpn_usp.cpp wpn_shared/wpn_xm1014.cpp ../engine/unicode_strtools.cpp ../game_shared/shared_util.cpp \
 ../game_shared/voice_gamemgr.cpp ../pm_shared/pm_debug.cpp ../pm_shared/pm_math.cpp ../pm_shared/pm_shared.cpp ../public/interface.cpp ../public/MemPool.cpp \
-../version/version.cpp ../regamedll/classes_dummy.cpp ../regamedll/hookchains_impl.cpp ../regamedll/platform.cpp ../regamedll/precompiled.cpp ../regamedll/regamedll_api_impl.cpp ../regamedll/regamedll.cpp ../regamedll/regamedll_debug.cpp ../regamedll/regamedll_interfaces_impl.cpp ../regamedll/sse_mathfun.cpp \
+../version/version.cpp ../regamedll/classes_dummy.cpp ../regamedll/hookchains_impl.cpp ../regamedll/platform.cpp ../regamedll/precompiled.cpp ../regamedll/regamedll_api_impl.cpp ../regamedll/regamedll.cpp ../regamedll/regamedll_debug.cpp ../regamedll/regamedll_interfaces_impl.cpp ../regamedll/sse_mathfun.cpp ../regamedll/neon_mathfun.cpp \
 ../game_shared/bot/bot.cpp ../game_shared/bot/bot_manager.cpp ../game_shared/bot/bot_profile.cpp ../game_shared/bot/bot_util.cpp ../game_shared/bot/nav_area.cpp ../game_shared/bot/nav_file.cpp ../game_shared/bot/nav_node.cpp ../game_shared/bot/nav_path.cpp \
 ../dlls/hostage/states/hostage_animate.cpp ../dlls/hostage/states/hostage_escape.cpp ../dlls/hostage/states/hostage_follow.cpp ../dlls/hostage/states/hostage_idle.cpp ../dlls/hostage/states/hostage_retreat.cpp \
 ../dlls/bot/states/cs_bot_attack.cpp ../dlls/bot/states/cs_bot_buy.cpp ../dlls/bot/states/cs_bot_defuse_bomb.cpp ../dlls/bot/states/cs_bot_escape_from_bomb.cpp ../dlls/bot/states/cs_bot_fetch_bomb.cpp ../dlls/bot/states/cs_bot_follow.cpp ../dlls/bot/states/cs_bot_hide.cpp ../dlls/bot/states/cs_bot_hunt.cpp ../dlls/bot/states/cs_bot_idle.cpp ../dlls/bot/states/cs_bot_investigate_noise.cpp ../dlls/bot/states/cs_bot_move_to.cpp ../dlls/bot/states/cs_bot_plant_bomb.cpp ../dlls/bot/states/cs_bot_use_entity.cpp
