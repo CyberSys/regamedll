@@ -97,7 +97,7 @@ cvar_t sk_scientist_heal3 = { "sk_scientist_heal3", "0", 0, 0.0f, NULL };
 
 #ifdef REGAMEDLL_ADD
 
-cvar_t game_version = { "game_version", APP_VERSION_STRD, FCVAR_SERVER, 0.0f, nullptr };
+cvar_t game_version = { "game_version", APP_VERSION, FCVAR_SERVER, 0.0f, nullptr };
 cvar_t maxmoney = { "mp_maxmoney", "16000", FCVAR_SERVER, 0.0f, nullptr };
 cvar_t round_infinite = { "mp_round_infinite", "0", FCVAR_SERVER, 0.0f, nullptr };
 cvar_t hegrenade_penetration = { "mp_hegrenade_penetration", "0", 0, 0.0f, nullptr };
@@ -113,15 +113,19 @@ cvar_t fraglimit = { "mp_fraglimit", "0", FCVAR_SERVER, 0.0f, nullptr };
 cvar_t showtriggers = { "showtriggers", "0", 0, 0.0f, nullptr };				// debug cvar shows triggers
 												// TODO: Maybe it's better to register in the engine?
 
+cvar_t hostagehurtable = { "mp_hostage_hurtable", "1", FCVAR_SERVER, 0.0f, nullptr };
+cvar_t roundover = { "mp_roundover", "0", FCVAR_SERVER, 0.0f, nullptr };
+cvar_t forcerespawn = { "mp_forcerespawn", "0", FCVAR_SERVER, 0.0f, nullptr };
+
 void GameDLL_Version_f()
 {
 	if (Q_stricmp(CMD_ARGV(1), "version") != 0)
 		return;
 
 	// print version
-	CONSOLE_ECHO("ReGameDLL build: " __TIME__ " " __DATE__ " (" APP_VERSION_STRD ")\n");
-	CONSOLE_ECHO("ReGameDLL API version %i.%i\n", REGAMEDLL_API_VERSION_MAJOR, REGAMEDLL_API_VERSION_MINOR);
-	CONSOLE_ECHO("Build from: " APP_COMMITS_URL APP_COMMIT_ID " " APP_COMMIT_AUTHOR "\n");
+	CONSOLE_ECHO("ReGameDLL version: " APP_VERSION "\n");
+	CONSOLE_ECHO("Build date: " APP_COMMIT_TIME " " APP_COMMIT_DATE "\n");
+	CONSOLE_ECHO("Build from: " APP_COMMIT_URL APP_COMMIT_SHA "\n");
 }
 
 void GameDLL_EndRound_f()
@@ -147,12 +151,20 @@ void EXT_FUNC GameDLLInit()
 	CVAR_REGISTER(&friendlyfire);
 	CVAR_REGISTER(&flashlight);
 	CVAR_REGISTER(&decalfrequency);
+
+#ifndef REGAMEDLL_FIXES
 	CVAR_REGISTER(&allowmonsters);
+#endif
+
 	CVAR_REGISTER(&roundtime);
 	CVAR_REGISTER(&buytime);
 	CVAR_REGISTER(&freezetime);
 	CVAR_REGISTER(&c4timer);
+
+#ifndef REGAMEDLL_FIXES
 	CVAR_REGISTER(&ghostfrequency);
+#endif
+
 	CVAR_REGISTER(&autokick);
 	CVAR_REGISTER(&autokick_timeout);
 	CVAR_REGISTER(&restartround);
@@ -247,10 +259,12 @@ void EXT_FUNC GameDLLInit()
 	CVAR_REGISTER(&fraglimit);
 
 	CVAR_REGISTER(&showtriggers);
+	CVAR_REGISTER(&hostagehurtable);
+	CVAR_REGISTER(&roundover);
+	CVAR_REGISTER(&forcerespawn);
 
 	// print version
-	CONSOLE_ECHO("ReGameDLL build: " __TIME__ " " __DATE__ " (" APP_VERSION_STRD ")\n");
-	CONSOLE_ECHO("ReGameDLL API version %i.%i\n", REGAMEDLL_API_VERSION_MAJOR, REGAMEDLL_API_VERSION_MINOR);
+	CONSOLE_ECHO("ReGameDLL version: " APP_VERSION "\n");
 
 #endif // REGAMEDLL_ADD
 
