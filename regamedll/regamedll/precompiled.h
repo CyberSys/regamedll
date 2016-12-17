@@ -1,6 +1,8 @@
 #pragma once
 
+#ifndef IGNORE_APPVERSION_H
 #include "version/appversion.h"
+#endif
 
 #include "osconfig.h"
 #include "basetypes.h"
