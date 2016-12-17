@@ -90,8 +90,13 @@
 #include <fstream>
 #include <iomanip>
 
+#if defined(__SSE4_1__) || defined(_M_IX86_FP)
 #include <smmintrin.h>
+#endif
+
+#if defined(__SSE__) || defined(_M_IX86_FP)
 #include <xmmintrin.h>
+#endif
 
 #ifdef _WIN32 // WINDOWS
 	#define _CRT_SECURE_NO_WARNINGS

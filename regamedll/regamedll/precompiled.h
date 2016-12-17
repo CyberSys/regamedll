@@ -7,7 +7,20 @@
 #include "osconfig.h"
 #include "basetypes.h"
 #include "archtypes.h"
+
+#if defined(__ARM_NEON__) || defined(__NEON__)
+
+#define SIMD_AVAILABLE
+#define SIMD_AVAILABLE_NEON
+#include "neon_mathfun.h"
+
+#elif defined(__SSE2__) || defined(_M_IX86_FP)
+
+#define SIMD_AVAILABLE
+#define SIMD_AVAILABLE_SSE2
 #include "sse_mathfun.h"
+
+#endif
 
 #include "MemPool.h"
 #include "engine.h"
