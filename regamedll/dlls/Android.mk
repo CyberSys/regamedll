@@ -11,7 +11,7 @@ LOCAL_MODULE_FILENAME = libserver_hardfp
 endif
 
 LOCAL_CFLAGS +=  -frtti -w -D_LINUX -DCLIENT_WEAPONS -D_access=access -D_vsnwprintf=vswprintf -Dstricmp=strcasecmp -D_strnicmp=strncasecmp -Dstrnicmp=strncasecmp -D_snprintf=snprintf -D_stricmp=strcasecmp -D_vsnprintf=vsnprintf -D_strdup=strdup -D_write=write -D_close=close \
-	-fno-exceptions -std=c++11 -DREGAMEDLL_FIXES -DREGAMEDLL_CHECKS -DREGAMEDLL_ADD -DDEDICATED -DREGAMEDLL_SELF -DREGAMEDLL_API -DCLIENT_WEAPONS -fpermissive
+	-fno-exceptions -std=c++11 -DREGAMEDLL_FIXES -DREGAMEDLL_CHECKS -DREGAMEDLL_ADD -DDEDICATED -DREGAMEDLL_SELF -DREGAMEDLL_API -DCLIENT_WEAPONS -fpermissive -DAPP_VERSION="" -DAPP_COMMIT_TIME="" -DAPP_COMMIT_DATE="" -DAPP_COMMIT_SHA="" -DAPP_COMMIT_URL="" -DIGNORE_APPVERSION_H
 	
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/. \
 		    $(LOCAL_PATH)/.. \
