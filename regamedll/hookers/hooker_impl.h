@@ -925,6 +925,7 @@ extern char pm_grgszTextureName[1024][17];
 extern char pm_grgchTextureType[1024];
 extern char *BotDifficultyName[5];
 
+extern BOOL g_fGameOver;
 extern float g_flResetTime;
 C_DLLEXPORT float g_flTimeLimit;
 
@@ -961,7 +962,7 @@ qboolean PM_CheckWater();
 void PM_CatagorizePosition();
 int PM_GetRandomStuckOffsets(int nIndex, int server, vec_t *offset);
 void PM_ResetStuckOffsets(int nIndex, int server);
-int PM_CheckStuck();
+qboolean PM_CheckStuck();
 void PM_SpectatorMove();
 float PM_SplineFraction(float value, float scale);
 float PM_SimpleSpline(float value);

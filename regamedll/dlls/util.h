@@ -191,9 +191,20 @@ inline entvars_t *VARS(edict_t *pent)
 	return &pent->v;
 }
 
-inline entvars_t *VARS(EOFFSET eoffset) { return VARS(ENT(eoffset)); }
+inline entvars_t *VARS(EOFFSET eoffset)
+{
+	return VARS(ENT(eoffset));
+}
+
+#ifndef ENTINDEX
 inline int ENTINDEX(const edict_t *pEdict) { return (*g_engfuncs.pfnIndexOfEdict)(pEdict); }
+inline int ENTINDEX(const entvars_t *pev) { return (*g_engfuncs.pfnIndexOfEdict)(ENT(pev)); }
+#endif // ENTINDEX
+
+#ifndef INDEXENT
 inline edict_t *INDEXENT(int iEdictNum) { return (*g_engfuncs.pfnPEntityOfEntIndex)(iEdictNum); }
+#endif // INDEXENT
+
 inline void MESSAGE_BEGIN(int msg_dest, int msg_type, const float *pOrigin, entvars_t *ent) { MESSAGE_BEGIN(msg_dest, msg_type, pOrigin, ENT(ent)); }
 inline BOOL FNullEnt(EOFFSET eoffset) { return (eoffset == 0); }
 inline BOOL FNullEnt(entvars_t *pev) { return (pev == NULL || FNullEnt(OFFSET(pev))); }
@@ -246,7 +257,9 @@ CBaseEntity *UTIL_FindEntityByString(CBaseEntity *pStartEntity, const char *szKe
 CBaseEntity *UTIL_FindEntityByClassname(CBaseEntity *pStartEntity, const char *szName);
 CBaseEntity *UTIL_FindEntityByTargetname(CBaseEntity *pStartEntity, const char *szName);
 CBaseEntity *UTIL_FindEntityGeneric(const char *szWhatever, const Vector &vecSrc, float flRadius);
+#ifndef REGAMEDLL_FIXES
 CBasePlayer *UTIL_PlayerByIndex(int playerIndex);
+#endif
 void UTIL_MakeVectors(const Vector &vecAngles);
 void UTIL_MakeAimVectors(const Vector &vecAngles);
 void UTIL_MakeInvVectors(const Vector &vec, globalvars_t *pgv);
@@ -324,6 +337,7 @@ int UTIL_ReadFlags(const char *c);
 bool UTIL_AreBotsAllowed();
 bool UTIL_AreHostagesImprov();
 void MAKE_STRING_CLASS(const char *str, entvars_t *pev);
+void NORETURN Sys_Error(const char *error, ...);
 
 extern int g_groupmask;
 extern int g_groupop;
