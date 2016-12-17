@@ -915,11 +915,12 @@ void CEnvSound::__MAKE_VHOOK(Think)()
 	// get pointer to client if visible; FIND_CLIENT_IN_PVS will
 	// cycle through visible clients on consecutive calls.
 	edict_t *pentPlayer = FIND_CLIENT_IN_PVS(edict());
-
+	
 	if (FNullEnt(pentPlayer))
 	{
 		// no player in pvs of sound entity, slow it down
-		goto env_sound_Think_slow;
+		pev->nextthink = gpGlobals->time + 0.75f;
+		return;
 	}
 
 	CBasePlayer *pPlayer = GetClassPtr<CCSPlayer>((CBasePlayer *)VARS(pentPlayer));
