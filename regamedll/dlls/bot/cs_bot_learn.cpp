@@ -1,6 +1,8 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "precompiled.h"
 
-const float updateTimesliceDuration = 0.5f;
+const float updateTimesliceDuration = 0.1f;
 
 int _navAreaCount = 0;
 int _currentIndex = 0;
@@ -464,16 +466,16 @@ void CCSBot::UpdateSaveProcess()
 	HintMessageToAllPlayers("Saving...");
 	SaveNavigationMap(filename);
 
-	Q_sprintf(msg, "Navigation file '%s' saved.", filename);
+	Q_snprintf(msg, sizeof(msg), "Navigation file '%s' saved.", filename);
 	HintMessageToAllPlayers(msg);
 
 	hideProgressMeter();
 	StartNormalProcess();
 
 #ifndef REGAMEDLL_FIXES
-	Q_sprintf(cmd, "map %s\n", STRING(gpGlobals->mapname));
+	Q_snprintf(cmd, sizeof(cmd), "map %s\n", STRING(gpGlobals->mapname));
 #else
-	Q_sprintf(cmd, "changelevel %s\n", STRING(gpGlobals->mapname));
+	Q_snprintf(cmd, sizeof(cmd), "changelevel %s\n", STRING(gpGlobals->mapname));
 #endif
 
 	SERVER_COMMAND(cmd);

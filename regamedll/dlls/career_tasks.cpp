@@ -1,3 +1,5 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "precompiled.h"
 
 /*
@@ -44,10 +46,9 @@ CCareerTask *CPreventDefuseTask::NewTask(const char *taskName, GameEventType eve
 	return reinterpret_cast<CCareerTask *>(pNewTask);
 }
 
-CPreventDefuseTask::CPreventDefuseTask(const char *taskName, GameEventType event, const char *weaponName, int n, bool mustLive, bool crossRounds, int id, bool isComplete)
+CPreventDefuseTask::CPreventDefuseTask(const char *taskName, GameEventType event, const char *weaponName, int n, bool mustLive, bool crossRounds, int id, bool isComplete):
+	CCareerTask(taskName, event, weaponName, n, mustLive, crossRounds, id, isComplete)
 {
-	CCareerTask(taskName, event, weaponName, n, mustLive, crossRounds, id, isComplete);
-
 	m_bombPlantedThisRound = false;
 	m_defuseStartedThisRound = false;
 }
@@ -121,6 +122,11 @@ CCareerTask::CCareerTask(const char *taskName, GameEventType event, const char *
 			WRITE_BYTE(m_id);
 		MESSAGE_END();
 	}
+}
+
+CCareerTask::~CCareerTask()
+{
+	;
 }
 
 void CCareerTask::__MAKE_VHOOK(Reset)()

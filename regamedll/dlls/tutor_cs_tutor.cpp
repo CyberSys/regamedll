@@ -1,3 +1,5 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "precompiled.h"
 
 /*
@@ -784,7 +786,7 @@ TutorMessageEvent *CCSTutor::CreateTutorMessageEvent(TutorMessageID mid, CBaseEn
 	if (message == NULL)
 		return NULL;
 
-	event = new TutorMessageEvent
+	event = new(std::nothrow) TutorMessageEvent
 	(
 		mid,
 		message->m_duplicateID,

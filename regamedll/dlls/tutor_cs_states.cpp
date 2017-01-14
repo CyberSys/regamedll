@@ -1,3 +1,5 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "precompiled.h"
 
 /*
@@ -49,7 +51,7 @@ bool CCSTutorStateSystem::__MAKE_VHOOK(UpdateState)(GameEventType event, CBaseEn
 {
 	if (m_currentState == NULL)
 	{
-		m_currentState = new CCSTutorUndefinedState;
+		m_currentState = new(std::nothrow) CCSTutorUndefinedState;
 	}
 
 	if (m_currentState != NULL)

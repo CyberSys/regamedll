@@ -1,3 +1,5 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "precompiled.h"
 
 /*
@@ -598,7 +600,7 @@ void Host_Say(edict_t *pEntity, BOOL teamonly)
 		p++;
 		p[Q_strlen(p) - 1] = '\0';
 	}
-
+#include "osconfig.h"
 	// make sure the text has content
 	if (/*!p || */!p[0] || !Q_UnicodeValidate(p))
 	{

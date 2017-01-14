@@ -1,3 +1,5 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 /* NEON implementation of sin, cos, exp and log
 
    Inspired by Intel Approximate Math library, and based on the

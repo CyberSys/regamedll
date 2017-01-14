@@ -1,3 +1,5 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "precompiled.h"
 
 LINK_ENTITY_TO_CLASS(weapon_p228, CP228, CCSP228);
@@ -172,7 +174,7 @@ void CP228::__MAKE_VHOOK(Reload)()
 	if (m_pPlayer->ammo_357sig <= 0)
 		return;
 
-	if (DefaultReload(iMaxClip(), m_pPlayer->HasShield() ? P228_SHIELD_RELOAD : P228_RELOAD, P228_RELOAD_TIME))
+	if (DefaultReload(iMaxClip(), m_pPlayer->HasShield() ? (int)P228_SHIELD_RELOAD : (int)P228_RELOAD, P228_RELOAD_TIME))
 	{
 		m_pPlayer->SetAnimation(PLAYER_RELOAD);
 		m_flAccuracy = 0.9f;

@@ -77,8 +77,12 @@
 	#include <sys/stat.h>
 	#include <sys/time.h>
 	#include <sys/types.h>
-	#include <sys/sysinfo.h>
-	#include <unistd.h>
+    #if defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__)
+        #include <sys/sysctl.h>
+    #else
+        #include <sys/sysinfo.h>
+    #endif
+    #include <unistd.h>
 
 	// Deail with stupid macro in kernel.h
 	#undef __FUNCTION__

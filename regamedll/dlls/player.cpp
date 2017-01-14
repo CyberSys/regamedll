@@ -1,3 +1,5 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "precompiled.h"
 
 /*
@@ -306,7 +308,7 @@ const char *GetCSModelName(int item_id)
 	case WEAPON_SCOUT:		modelName = "models/w_scout.mdl"; break;
 	case WEAPON_HEGRENADE:		modelName = "models/w_hegrenade.mdl"; break;
 	case WEAPON_XM1014:		modelName = "models/w_xm1014.mdl"; break;
- 	case WEAPON_C4:			modelName = "models/w_backpack.mdl"; break;
+	case WEAPON_C4:			modelName = "models/w_backpack.mdl"; break;
 	case WEAPON_MAC10:		modelName = "models/w_mac10.mdl"; break;
 	case WEAPON_AUG:		modelName = "models/w_aug.mdl"; break;
 	case WEAPON_SMOKEGRENADE:	modelName = "models/w_smokegrenade.mdl"; break;
@@ -4812,7 +4814,9 @@ void CBasePlayer::UpdatePlayerSound()
 		m_iExtraSoundTypes = 0;
 	}
 
+#ifndef REGAMEDLL_FIXES // already checked for null
 	if (pSound)
+#endif
 	{
 		pSound->m_vecOrigin = pev->origin;
 		pSound->m_iVolume = iVolume;
@@ -5759,7 +5763,9 @@ void CBasePlayer::SelectItem(const char *pstr)
 	m_pLastItem = m_pActiveItem;
 	m_pActiveItem = pItem;
 
+#ifndef REGAMEDLL_FIXES // already checked for null
 	if (m_pActiveItem)
+#endif
 	{
 		CBasePlayerWeapon *pWeapon = (CBasePlayerWeapon *)m_pActiveItem;
 		pWeapon->m_iWeaponState &= ~WPNSTATE_SHIELD_DRAWN;
