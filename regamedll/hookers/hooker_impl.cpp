@@ -1379,6 +1379,9 @@ int CHalfLifeRules::PlayerRelationship(CBasePlayer *pPlayer, CBaseEntity *pTarge
 BOOL CHalfLifeRules::FAllowMonsters() { return FAllowMonsters_(); }
 
 // sound
+int gcTextures;
+BOOL fTextureTypeInit;
+
 void CAmbientGeneric::Spawn() { Spawn_(); }
 void CAmbientGeneric::Precache() { Precache_(); }
 void CAmbientGeneric::Restart() { Restart_(); }

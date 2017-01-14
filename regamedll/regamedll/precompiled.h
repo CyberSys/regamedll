@@ -19,6 +19,7 @@
 #define SIMD_AVAILABLE
 #define SIMD_AVAILABLE_SSE2
 #include "sse_mathfun.h"
+#include "asmlib.h"
 
 #endif
 
