@@ -21,3 +21,6 @@ regamedll/msvc/PublishPath*.txt
 regamedll/_regamedllTestImg
 regamedll/_dev
 publish
+regamebuild/
+*.user
+*.tasks
