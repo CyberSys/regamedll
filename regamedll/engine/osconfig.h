@@ -63,11 +63,15 @@
 	#include <ctype.h>
 	//#include <dirent.h>
 	#include <dlfcn.h>
+#ifndef __APPLE__
 	#include <elf.h>
+#endif
 	#include <errno.h>
 	#include <fcntl.h>
 	#include <limits.h>
+#ifndef __APPLE__
 	#include <link.h>
+#endif
 	#include <netdb.h>
 	#include <netinet/in.h>
 	#include <pthread.h>
@@ -77,13 +81,13 @@
 	#include <sys/stat.h>
 	#include <sys/time.h>
 	#include <sys/types.h>
-    #if defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__)
-        #include <sys/sysctl.h>
-    #else
-        #include <sys/sysinfo.h>
-    #endif
-    #include <unistd.h>
 
+#if defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__APPLE__)
+	#include <sys/sysctl.h>
+#else
+	#include <sys/sysinfo.h>
+#endif
+	#include <unistd.h>
 	// Deail with stupid macro in kernel.h
 	#undef __FUNCTION__
 	#define __declspec(x)

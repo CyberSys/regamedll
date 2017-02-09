@@ -135,7 +135,7 @@ struct BuyInfo
 
 #ifndef HOOK_GAMEDLL
 
-static BuyInfo primaryWeaponBuyInfoCT[ PRIMARY_WEAPON_BUY_COUNT ] =
+BuyInfo primaryWeaponBuyInfoCT[ PRIMARY_WEAPON_BUY_COUNT ] =
 {
 	{ SHOTGUN,		false, "m3" },			// WEAPON_M3
 	{ SHOTGUN,		false, "xm1014" },		// WEAPON_XM1014
@@ -152,7 +152,7 @@ static BuyInfo primaryWeaponBuyInfoCT[ PRIMARY_WEAPON_BUY_COUNT ] =
 	{ MACHINE_GUN,		false, "m249" }			// WEAPON_M249
 };
 
-static BuyInfo secondaryWeaponBuyInfoCT[ SECONDARY_WEAPON_BUY_COUNT ] =
+BuyInfo secondaryWeaponBuyInfoCT[ SECONDARY_WEAPON_BUY_COUNT ] =
 {
 //	{ PISTOL, false,	"glock" },
 //	{ PISTOL, false,	"usp" },
@@ -161,7 +161,7 @@ static BuyInfo secondaryWeaponBuyInfoCT[ SECONDARY_WEAPON_BUY_COUNT ] =
 	{ PISTOL, true,		"fn57" }
 };
 
-static BuyInfo primaryWeaponBuyInfoT[ PRIMARY_WEAPON_BUY_COUNT ] =
+BuyInfo primaryWeaponBuyInfoT[ PRIMARY_WEAPON_BUY_COUNT ] =
 {
 	{ SHOTGUN,		false, "m3" },			// WEAPON_M3
 	{ SHOTGUN,		false, "xm1014" },		// WEAPON_XM1014
@@ -178,7 +178,7 @@ static BuyInfo primaryWeaponBuyInfoT[ PRIMARY_WEAPON_BUY_COUNT ] =
 	{ MACHINE_GUN,		false, "m249" }			// WEAPON_M249
 };
 
-static BuyInfo secondaryWeaponBuyInfoT[ SECONDARY_WEAPON_BUY_COUNT ] =
+BuyInfo secondaryWeaponBuyInfoT[ SECONDARY_WEAPON_BUY_COUNT ] =
 {
 //	{ PISTOL, false,	"glock" },
 //	{ PISTOL, false,	"usp" },
