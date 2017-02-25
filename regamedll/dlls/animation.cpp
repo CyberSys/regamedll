@@ -539,7 +539,7 @@ C_DLLEXPORT int Server_GetBlendingInterface(int version, struct sv_blending_inte
 #if defined(REGAMEDLL_FIXES) && defined(SIMD_AVAILABLE_SSE2) // SSE2 version
 void AngleQuaternion(vec_t *angles, vec_t *quaternion)
 {
-	static const ALIGN16_BEG int ps_signmask[4] ALIGN16_END = { 0x80000000, 0, 0x80000000, 0 };
+	static const ALIGN16_BEG int ps_signmask[4] ALIGN16_END = { (int)0x80000000, 0, (int)0x80000000, 0 };
 
 	__m128 a = _mm_loadu_ps(angles);
 	a = _mm_mul_ps(a, _mm_load_ps(_ps_0p5)); //a *= 0.5

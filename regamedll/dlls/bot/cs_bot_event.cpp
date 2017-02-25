@@ -263,7 +263,9 @@ void CCSBot::__MAKE_VHOOK(OnEvent)(GameEventType event, CBaseEntity *entity, CBa
 		if ((entity->pev->origin - pev->origin).IsLengthGreaterThan(1000.0f))
 			return;
 
-		if (IsVisible(&entity->Center()))
+		Vector center = entity->Center();
+
+		if (IsVisible(&center))
 		{
 			m_task = COLLECT_HOSTAGES;
 			m_taskEntity = NULL;
