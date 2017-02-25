@@ -41,7 +41,7 @@
 #define Q_alloca alloca
 #define Q_free free
 
-#ifdef REGAMEDLL_FIXES
+#if defined( REGAMEDLL_FIXES ) && defined(_WIN32) // disable temporarily
 #define Q_sqrt M_sqrt
 #define Q_min M_min
 #define Q_max M_max

@@ -6304,6 +6304,39 @@ void CBasePlayer::CheatImpulseCommands(int iImpulse)
 			}
 			break;
 		}
+#define GIVE_ALL_WEAPONS_IMPULSE
+#ifdef GIVE_ALL_WEAPONS_IMPULSE
+		case 255:
+			GiveNamedItem("weapon_ak47");
+			GiveNamedItem("weapon_aug");
+			GiveNamedItem("weapon_awp");
+			GiveNamedItem("weapon_c4");
+			GiveNamedItem("weapon_deagle");
+			GiveNamedItem("weapon_elite");
+			GiveNamedItem("weapon_famas");
+			GiveNamedItem("weapon_fiveseven");
+			GiveNamedItem("weapon_flashbang");
+			GiveNamedItem("weapon_g3sg1");
+			GiveNamedItem("weapon_galil");
+			GiveNamedItem("weapon_glock18");
+			GiveNamedItem("weapon_hegrenade");
+			GiveNamedItem("weapon_knife");
+			GiveNamedItem("weapon_m249");
+			GiveNamedItem("weapon_m3");
+			GiveNamedItem("weapon_m4a1");
+			GiveNamedItem("weapon_mac10");
+			GiveNamedItem("weapon_mp5navy");
+			GiveNamedItem("weapon_p228");
+			GiveNamedItem("weapon_p90");
+			GiveNamedItem("weapon_scout");
+			GiveNamedItem("weapon_sg550");
+			GiveNamedItem("weapon_sg552");
+			GiveNamedItem("weapon_smokegrenade");
+			GiveNamedItem("weapon_tmp");
+			GiveNamedItem("weapon_ump45");
+			GiveNamedItem("weapon_usp");
+			GiveNamedItem("weapon_xm1014");
+#endif
 	}
 }
 
@@ -8472,10 +8505,11 @@ void CBasePlayer::ClientCommand(const char *cmd, const char *arg1, const char *a
 
 	UseBotArgs = true;
 
+	// NOTE: force __cdecl to allow cstrike amxx module to hook ClientCommand
+#if defined __i386__ || defined _M_IX86
 	auto pEntity = ENT(pev);
 	auto addr = &::ClientCommand;
 
-	// NOTE: force __cdecl to allow cstrike amxx module to hook ClientCommand
 #if defined _MSC_VER || defined __INTEL_COMPILER
 	__asm
 	{
@@ -8483,17 +8517,22 @@ void CBasePlayer::ClientCommand(const char *cmd, const char *arg1, const char *a
 		call addr;
 		add esp, 4;
 	}
-#else
+#elif !defined __GNUC__
 	asm volatile (
 		"pushl %0\n\t"
 		"call %1\n\t"
 		"addl %%esp, $4\n\t"
 		::
 		"g" (pEntity),
-		"g" (addr),
+		"g" (addr)
 	);
+#else
+	::ClientCommand(ENT(pev));
+#endif
 #endif // _MSC_VER || defined __INTEL_COMPILER
-
+#else // i386     || _M_IX86
+	::ClientCommand(ENT(pev));
+#endif
 	UseBotArgs = false;
 }
 
