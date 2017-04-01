@@ -1842,7 +1842,6 @@ Vector CBaseEntity::FireBullets3(Vector vecSrc, Vector vecDirShooting, float vec
 
 			DecalGunshot(&tr, iBulletType, (!bPistol && RANDOM_LONG(0, 3)), pev, bHitMetal);
 
-#define TRACE_BULLETS
 #ifdef TRACE_BULLETS
 			Vector vecEndPos2 = tr.vecEndPos - (vecDir * 3);
 			MESSAGE_BEGIN( MSG_BROADCAST, SVC_TEMPENTITY );
