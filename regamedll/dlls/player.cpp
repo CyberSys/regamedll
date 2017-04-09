@@ -8529,7 +8529,6 @@ void CBasePlayer::ClientCommand(const char *cmd, const char *arg1, const char *a
 #else
 	::ClientCommand(ENT(pev));
 #endif
-#endif // _MSC_VER || defined __INTEL_COMPILER
 #else // i386     || _M_IX86
 	::ClientCommand(ENT(pev));
 #endif
