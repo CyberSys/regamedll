@@ -2,7 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "precompiled.h"
 
-LINK_ENTITY_TO_CLASS(weapon_glock18, CGLOCK18, CCSGLOCK18);
+LINK_ENTITY_TO_CLASS(weapon_glock18, CGLOCK18, CCSGLOCK18)
 
 void CGLOCK18::__MAKE_VHOOK(Spawn)()
 {

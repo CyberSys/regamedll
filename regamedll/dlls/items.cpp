@@ -46,7 +46,7 @@ ItemInfo itemInfo[] = {
 
 // NOTE: useless thing
 #ifndef REGAMEDLL_FIXES
-LINK_ENTITY_TO_CLASS(world_items, CWorldItem, CCSWorldItem);
+LINK_ENTITY_TO_CLASS(world_items, CWorldItem, CCSWorldItem)
 
 void CWorldItem::__MAKE_VHOOK(KeyValue)(KeyValueData *pkvd)
 {
@@ -81,7 +81,7 @@ void CWorldItem::__MAKE_VHOOK(Spawn)()
 		break;
 	}
 
-	if (pEntity != NULL)
+	if (pEntity)
 	{
 		pEntity->pev->target = pev->target;
 		pEntity->pev->targetname = pev->targetname;
@@ -191,7 +191,7 @@ BOOL CItemSuit::__MAKE_VHOOK(MyTouch)(CBasePlayer *pPlayer)
 	return TRUE;
 }
 
-LINK_ENTITY_TO_CLASS(item_suit, CItemSuit, CCSItemSuit);
+LINK_ENTITY_TO_CLASS(item_suit, CItemSuit, CCSItemSuit)
 #endif
 
 void CItemBattery::__MAKE_VHOOK(Spawn)()
@@ -244,7 +244,7 @@ BOOL CItemBattery::__MAKE_VHOOK(MyTouch)(CBasePlayer *pPlayer)
 	return FALSE;
 }
 
-LINK_ENTITY_TO_CLASS(item_battery, CItemBattery, CCSItemBattery);
+LINK_ENTITY_TO_CLASS(item_battery, CItemBattery, CCSItemBattery)
 
 void CItemAntidote::__MAKE_VHOOK(Spawn)()
 {
@@ -271,7 +271,7 @@ BOOL CItemAntidote::__MAKE_VHOOK(MyTouch)(CBasePlayer *pPlayer)
 	return TRUE;
 }
 
-LINK_ENTITY_TO_CLASS(item_antidote, CItemAntidote, CCSItemAntidote);
+LINK_ENTITY_TO_CLASS(item_antidote, CItemAntidote, CCSItemAntidote)
 
 // NOTE: useless thing
 #ifndef REGAMEDLL_FIXES
@@ -293,7 +293,7 @@ BOOL CItemSecurity::__MAKE_VHOOK(MyTouch)(CBasePlayer *pPlayer)
 	return TRUE;
 }
 
-LINK_ENTITY_TO_CLASS(item_security, CItemSecurity, CCSItemSecurity);
+LINK_ENTITY_TO_CLASS(item_security, CItemSecurity, CCSItemSecurity)
 #endif
 
 void CItemLongJump::__MAKE_VHOOK(Spawn)()
@@ -336,7 +336,7 @@ BOOL CItemLongJump::__MAKE_VHOOK(MyTouch)(CBasePlayer *pPlayer)
 	return FALSE;
 }
 
-LINK_ENTITY_TO_CLASS(item_longjump, CItemLongJump, CCSItemLongJump);
+LINK_ENTITY_TO_CLASS(item_longjump, CItemLongJump, CCSItemLongJump)
 
 void CItemKevlar::__MAKE_VHOOK(Spawn)()
 {
@@ -371,7 +371,7 @@ BOOL CItemKevlar::__MAKE_VHOOK(MyTouch)(CBasePlayer *pPlayer)
 		WRITE_BYTE(0);
 	MESSAGE_END();
 
-	if (TheTutor != NULL)
+	if (TheTutor)
 	{
 		TheTutor->OnEvent(EVENT_PLAYER_BOUGHT_SOMETHING, pPlayer);
 	}
@@ -379,7 +379,7 @@ BOOL CItemKevlar::__MAKE_VHOOK(MyTouch)(CBasePlayer *pPlayer)
 	return TRUE;
 }
 
-LINK_ENTITY_TO_CLASS(item_kevlar, CItemKevlar, CCSItemKevlar);
+LINK_ENTITY_TO_CLASS(item_kevlar, CItemKevlar, CCSItemKevlar)
 
 void CItemAssaultSuit::__MAKE_VHOOK(Spawn)()
 {
@@ -413,7 +413,7 @@ BOOL CItemAssaultSuit::__MAKE_VHOOK(MyTouch)(CBasePlayer *pPlayer)
 		WRITE_BYTE(1);
 	MESSAGE_END();
 
-	if (TheTutor != NULL)
+	if (TheTutor)
 	{
 		TheTutor->OnEvent(EVENT_PLAYER_BOUGHT_SOMETHING, pPlayer);
 	}
@@ -421,7 +421,7 @@ BOOL CItemAssaultSuit::__MAKE_VHOOK(MyTouch)(CBasePlayer *pPlayer)
 	return TRUE;
 }
 
-LINK_ENTITY_TO_CLASS(item_assaultsuit, CItemAssaultSuit, CCSItemAssaultSuit);
+LINK_ENTITY_TO_CLASS(item_assaultsuit, CItemAssaultSuit, CCSItemAssaultSuit)
 
 void CItemThighPack::__MAKE_VHOOK(Spawn)()
 {
@@ -461,7 +461,7 @@ BOOL CItemThighPack::__MAKE_VHOOK(MyTouch)(CBasePlayer *pPlayer)
 	pPlayer->SendItemStatus();
 	EMIT_SOUND(pPlayer->edict(), CHAN_VOICE, "items/kevlar.wav", VOL_NORM, ATTN_NORM);
 
-	if (TheTutor != NULL)
+	if (TheTutor)
 	{
 		TheTutor->OnEvent(EVENT_PLAYER_BOUGHT_SOMETHING, pPlayer);
 	}
@@ -469,7 +469,7 @@ BOOL CItemThighPack::__MAKE_VHOOK(MyTouch)(CBasePlayer *pPlayer)
 	return TRUE;
 }
 
-LINK_ENTITY_TO_CLASS(item_thighpack, CItemThighPack, CCSItemThighPack);
+LINK_ENTITY_TO_CLASS(item_thighpack, CItemThighPack, CCSItemThighPack)
 
 ItemID GetItemIdByName(const char *pszName)
 {

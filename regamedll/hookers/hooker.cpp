@@ -105,7 +105,7 @@ void *GetOriginalFuncAddrOrDie(const char *funcName)
 			return (void*) cfh->originalAddress;
 	}
 
-	regamedll_syserror(__FUNCTION__": Could not find function '%s'", funcName);
+	regamedll_syserror("%s: Could not find function '%s'", __FUNCTION__, funcName);
 	return NULL;
 }
 
@@ -128,7 +128,7 @@ void *GetFuncRefAddrOrDie(const char *funcName)
 			return (void*)cfh->originalAddress;
 	}
 
-	regamedll_syserror(__FUNCTION__": Could not find function '%s'", funcName);
+	regamedll_syserror("%s: Could not find function '%s'", __FUNCTION__, funcName);
 	return NULL;
 }
 
@@ -160,7 +160,7 @@ int HookGameDLL(size_t gameAddr, size_t engAddr)
 	{
 		if (!GetAddress(&g_GameDLLModule, (Address *)refData, g_BaseOffset))
 		{
-			_logf(__FUNCTION__ ": symbol not found \"%s\", symbol index: %i", refData->symbolName, refData->symbolIndex);
+			_logf("%s: symbol not found \"%s\", symbol index: %i", __FUNCTION__, refData->symbolName, refData->symbolIndex);
 			success = false;
 		}
 		refData++;
@@ -171,7 +171,7 @@ int HookGameDLL(size_t gameAddr, size_t engAddr)
 	{
 		if (!GetAddress(&g_GameDLLModule, (Address *)refFunc, g_BaseOffset))
 		{
-			_logf(__FUNCTION__ ": symbol not found \"%s\", symbol index: %i", refFunc->symbolName, refFunc->symbolIndex);
+			_logf("%s: symbol not found \"%s\", symbol index: %i", __FUNCTION__, refFunc->symbolName, refFunc->symbolIndex);
 			success = false;
 		}
 		refFunc++;
@@ -182,7 +182,7 @@ int HookGameDLL(size_t gameAddr, size_t engAddr)
 	{
 		if (!GetAddress(&g_GameDLLModule, (Address*)hookFunc, g_BaseOffset))
 		{
-			_logf(__FUNCTION__ ": symbol not found \"%s\", symbol index: %i", hookFunc->symbolName, hookFunc->symbolIndex);
+			_logf("%s: symbol not found \"%s\", symbol index: %i", __FUNCTION__, hookFunc->symbolName, hookFunc->symbolIndex);
 			success = false;
 		}
 		hookFunc++;
@@ -193,7 +193,7 @@ int HookGameDLL(size_t gameAddr, size_t engAddr)
 	{
 		if (!GetAddress(&g_GameDLLModule, (Address *)refVtbl, g_BaseOffset))
 		{
-			_logf(__FUNCTION__ ": symbol not found \"%s\"", refVtbl->symbolName);
+			_logf("%s: symbol not found \"%s\"", __FUNCTION__, refVtbl->symbolName);
 			success = false;
 		}
 		refVtbl++;
@@ -201,7 +201,7 @@ int HookGameDLL(size_t gameAddr, size_t engAddr)
 
 	if (!success)
 	{
-		_logf(__FUNCTION__ ": failed to hook gamedll!");
+		_logf("%s: failed to hook gamedll!", __FUNCTION__);
 		return FALSE;
 	}
 

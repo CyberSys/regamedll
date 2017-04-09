@@ -2,7 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "precompiled.h"
 
-LINK_ENTITY_TO_CLASS(weapon_galil, CGalil, CCSGalil);
+LINK_ENTITY_TO_CLASS(weapon_galil, CGalil, CCSGalil)
 
 void CGalil::__MAKE_VHOOK(Spawn)()
 {

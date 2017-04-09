@@ -2,7 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "precompiled.h"
 
-LINK_HOOK_CHAIN(int, GetForceCamera, (CBasePlayer *pObserver), pObserver);
+LINK_HOOK_CHAIN(int, GetForceCamera, (CBasePlayer *pObserver), pObserver)
 
 int EXT_FUNC __API_HOOK(GetForceCamera)(CBasePlayer *pObserver)
 {
@@ -21,7 +21,7 @@ int EXT_FUNC __API_HOOK(GetForceCamera)(CBasePlayer *pObserver)
 	return retVal;
 }
 
-LINK_HOOK_CLASS_CHAIN(CBasePlayer *, CBasePlayer, Observer_IsValidTarget, (int iPlayerIndex, bool bSameTeam), iPlayerIndex, bSameTeam);
+LINK_HOOK_CLASS_CHAIN(CBasePlayer *, CBasePlayer, Observer_IsValidTarget, (int iPlayerIndex, bool bSameTeam), iPlayerIndex, bSameTeam)
 
 CBasePlayer *EXT_FUNC CBasePlayer::__API_HOOK(Observer_IsValidTarget)(int iPlayerIndex, bool bSameTeam)
 {
@@ -505,4 +505,11 @@ void CBasePlayer::Observer_SetMode(int iMode)
 
 	m_iObserverLastMode = iMode;
 	m_bWasFollowing = false;
+}
+
+void CBasePlayer::Observer_Think()
+{
+	Observer_HandleButtons();
+	Observer_CheckTarget();
+	Observer_CheckProperties();
 }

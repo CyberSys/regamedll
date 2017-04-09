@@ -25,7 +25,7 @@ TYPEDESCRIPTION CMomentaryDoor::m_SaveData[] =
 
 #endif
 
-IMPLEMENT_SAVERESTORE(CBaseDoor, CBaseToggle);
+IMPLEMENT_SAVERESTORE(CBaseDoor, CBaseToggle)
 
 // play door or button locked or unlocked sounds.
 // pass in pointer to valid locksound struct.
@@ -189,10 +189,10 @@ void CBaseDoor::__MAKE_VHOOK(KeyValue)(KeyValueData *pkvd)
 // 2)	base
 // 3)	stone chain
 // 4)	screechy metal
-LINK_ENTITY_TO_CLASS(func_door, CBaseDoor, CCSDoor);
+LINK_ENTITY_TO_CLASS(func_door, CBaseDoor, CCSDoor)
 
 // func_water - same as a door.
-LINK_ENTITY_TO_CLASS(func_water, CBaseDoor, CCSDoor);
+LINK_ENTITY_TO_CLASS(func_water, CBaseDoor, CCSDoor)
 
 void CBaseDoor::__MAKE_VHOOK(Spawn)()
 {
@@ -847,7 +847,7 @@ void CBaseDoor::__MAKE_VHOOK(Blocked)(CBaseEntity *pOther)
 // 2)	base
 // 3)	stone chain
 // 4)	screechy metal
-LINK_ENTITY_TO_CLASS(func_door_rotating, CRotDoor, CCSRotDoor);
+LINK_ENTITY_TO_CLASS(func_door_rotating, CRotDoor, CCSRotDoor)
 
 void CRotDoor::__MAKE_VHOOK(Restart)()
 {
@@ -953,8 +953,8 @@ void CRotDoor::__MAKE_VHOOK(SetToggleState)(int state)
 	UTIL_SetOrigin(pev, pev->origin);
 }
 
-LINK_ENTITY_TO_CLASS(momentary_door, CMomentaryDoor, CCSMomentaryDoor);
-IMPLEMENT_SAVERESTORE(CMomentaryDoor, CBaseToggle);
+LINK_ENTITY_TO_CLASS(momentary_door, CMomentaryDoor, CCSMomentaryDoor)
+IMPLEMENT_SAVERESTORE(CMomentaryDoor, CBaseToggle)
 
 void CMomentaryDoor::__MAKE_VHOOK(Spawn)()
 {

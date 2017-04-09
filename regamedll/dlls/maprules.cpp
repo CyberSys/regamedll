@@ -29,7 +29,7 @@ TYPEDESCRIPTION CGamePlayerZone::m_SaveData[] =
 
 #endif
 
-IMPLEMENT_SAVERESTORE(CRuleEntity, CBaseEntity);
+IMPLEMENT_SAVERESTORE(CRuleEntity, CBaseEntity)
 
 void CRuleEntity::__MAKE_VHOOK(Spawn)()
 {
@@ -75,7 +75,7 @@ void CRuleBrushEntity::__MAKE_VHOOK(Spawn)()
 	CRuleEntity::Spawn();
 }
 
-LINK_ENTITY_TO_CLASS(game_score, CGameScore, CCSGameScore);
+LINK_ENTITY_TO_CLASS(game_score, CGameScore, CCSGameScore)
 
 void CGameScore::__MAKE_VHOOK(Spawn)()
 {
@@ -112,7 +112,7 @@ void CGameScore::__MAKE_VHOOK(Use)(CBaseEntity *pActivator, CBaseEntity *pCaller
 	}
 }
 
-LINK_ENTITY_TO_CLASS(game_end, CGameEnd, CCSGameEnd);
+LINK_ENTITY_TO_CLASS(game_end, CGameEnd, CCSGameEnd)
 
 void CGameEnd::__MAKE_VHOOK(Use)(CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value)
 {
@@ -122,8 +122,8 @@ void CGameEnd::__MAKE_VHOOK(Use)(CBaseEntity *pActivator, CBaseEntity *pCaller, 
 	g_pGameRules->EndMultiplayerGame();
 }
 
-LINK_ENTITY_TO_CLASS(game_text, CGameText, CCSGameText);
-IMPLEMENT_SAVERESTORE(CGameText, CRulePointEntity);
+LINK_ENTITY_TO_CLASS(game_text, CGameText, CCSGameText)
+IMPLEMENT_SAVERESTORE(CGameText, CRulePointEntity)
 
 void CGameText::__MAKE_VHOOK(KeyValue)(KeyValueData *pkvd)
 {
@@ -213,7 +213,7 @@ void CGameText::__MAKE_VHOOK(Use)(CBaseEntity *pActivator, CBaseEntity *pCaller,
 	}
 }
 
-LINK_ENTITY_TO_CLASS(game_team_master, CGameTeamMaster, CCSGameTeamMaster);
+LINK_ENTITY_TO_CLASS(game_team_master, CGameTeamMaster, CCSGameTeamMaster)
 
 void CGameTeamMaster::__MAKE_VHOOK(KeyValue)(KeyValueData *pkvd)
 {
@@ -323,7 +323,7 @@ BOOL CGameTeamMaster::TeamMatch(CBaseEntity *pActivator)
 #endif
 }
 
-LINK_ENTITY_TO_CLASS(game_team_set, CGameTeamSet, CCSGameTeamSet);
+LINK_ENTITY_TO_CLASS(game_team_set, CGameTeamSet, CCSGameTeamSet)
 
 void CGameTeamSet::__MAKE_VHOOK(Use)(CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value)
 {
@@ -347,8 +347,8 @@ void CGameTeamSet::__MAKE_VHOOK(Use)(CBaseEntity *pActivator, CBaseEntity *pCall
 	}
 }
 
-LINK_ENTITY_TO_CLASS(game_zone_player, CGamePlayerZone, CCSGamePlayerZone);
-IMPLEMENT_SAVERESTORE(CGamePlayerZone, CRuleBrushEntity);
+LINK_ENTITY_TO_CLASS(game_zone_player, CGamePlayerZone, CCSGamePlayerZone)
+IMPLEMENT_SAVERESTORE(CGamePlayerZone, CRuleBrushEntity)
 
 void CGamePlayerZone::__MAKE_VHOOK(KeyValue)(KeyValueData *pkvd)
 {
@@ -432,7 +432,7 @@ void CGamePlayerZone::__MAKE_VHOOK(Use)(CBaseEntity *pActivator, CBaseEntity *pC
 
 }
 
-LINK_ENTITY_TO_CLASS(game_player_hurt, CGamePlayerHurt, CCSGamePlayerHurt);
+LINK_ENTITY_TO_CLASS(game_player_hurt, CGamePlayerHurt, CCSGamePlayerHurt)
 
 void CGamePlayerHurt::__MAKE_VHOOK(Use)(CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value)
 {
@@ -455,7 +455,7 @@ void CGamePlayerHurt::__MAKE_VHOOK(Use)(CBaseEntity *pActivator, CBaseEntity *pC
 	}
 }
 
-LINK_ENTITY_TO_CLASS(game_counter, CGameCounter, CCSGameCounter);
+LINK_ENTITY_TO_CLASS(game_counter, CGameCounter, CCSGameCounter)
 
 void CGameCounter::__MAKE_VHOOK(Spawn)()
 {
@@ -501,7 +501,7 @@ void CGameCounter::__MAKE_VHOOK(Use)(CBaseEntity *pActivator, CBaseEntity *pCall
 	}
 }
 
-LINK_ENTITY_TO_CLASS(game_counter_set, CGameCounterSet, CCSGameCounterSet);
+LINK_ENTITY_TO_CLASS(game_counter_set, CGameCounterSet, CCSGameCounterSet)
 
 void CGameCounterSet::__MAKE_VHOOK(Use)(CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value)
 {
@@ -516,7 +516,7 @@ void CGameCounterSet::__MAKE_VHOOK(Use)(CBaseEntity *pActivator, CBaseEntity *pC
 	}
 }
 
-LINK_ENTITY_TO_CLASS(game_player_equip, CGamePlayerEquip, CCSGamePlayerEquip);
+LINK_ENTITY_TO_CLASS(game_player_equip, CGamePlayerEquip, CCSGamePlayerEquip)
 
 void CGamePlayerEquip::__MAKE_VHOOK(KeyValue)(KeyValueData *pkvd)
 {
@@ -588,7 +588,7 @@ void CGamePlayerEquip::__MAKE_VHOOK(Use)(CBaseEntity *pActivator, CBaseEntity *p
 	EquipPlayer(pActivator);
 }
 
-LINK_ENTITY_TO_CLASS(game_player_team, CGamePlayerTeam, CCSGamePlayerTeam);
+LINK_ENTITY_TO_CLASS(game_player_team, CGamePlayerTeam, CCSGamePlayerTeam)
 
 const char *CGamePlayerTeam::TargetTeamName(const char *pszTargetName)
 {

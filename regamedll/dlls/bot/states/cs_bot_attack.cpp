@@ -458,7 +458,6 @@ void AttackState::__MAKE_VHOOK(OnUpdate)(CCSBot *me)
 	if (gpGlobals->time > m_reacquireTimestamp)
 		me->FireWeaponAtEnemy();
 
-
 	// do dodge behavior
 	// If sniping or crouching, stand still.
 	if (m_dodge && !me->IsUsingSniperRifle() && !m_crouchAndHold)

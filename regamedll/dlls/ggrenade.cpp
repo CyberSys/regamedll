@@ -28,7 +28,7 @@ TYPEDESCRIPTION CGrenade::m_SaveData[] =
 
 #endif
 
-LINK_ENTITY_TO_CLASS(grenade, CGrenade, CCSGrenade);
+LINK_ENTITY_TO_CLASS(grenade, CGrenade, CCSGrenade)
 
 void CGrenade::Explode(Vector vecSrc, Vector vecAim)
 {
@@ -1387,4 +1387,4 @@ NOXREF void CGrenade::UseSatchelCharges(entvars_t *pevOwner, SATCHELCODE code)
 	}
 }
 
-IMPLEMENT_SAVERESTORE(CGrenade, CBaseMonster);
+IMPLEMENT_SAVERESTORE(CGrenade, CBaseMonster)

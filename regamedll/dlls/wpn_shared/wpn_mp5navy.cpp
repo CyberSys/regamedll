@@ -2,7 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "precompiled.h"
 
-LINK_ENTITY_TO_CLASS(weapon_mp5navy, CMP5N, CCSMP5N);
+LINK_ENTITY_TO_CLASS(weapon_mp5navy, CMP5N, CCSMP5N)
 
 void CMP5N::__MAKE_VHOOK(Spawn)()
 {

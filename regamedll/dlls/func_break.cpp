@@ -171,8 +171,8 @@ void CBreakable::__MAKE_VHOOK(KeyValue)(KeyValueData *pkvd)
 		CBaseDelay::KeyValue(pkvd);
 }
 
-LINK_ENTITY_TO_CLASS(func_breakable, CBreakable, CCSBreakable);
-IMPLEMENT_SAVERESTORE(CBreakable, CBaseEntity);
+LINK_ENTITY_TO_CLASS(func_breakable, CBreakable, CCSBreakable)
+IMPLEMENT_SAVERESTORE(CBreakable, CBaseEntity)
 
 void CBreakable::__MAKE_VHOOK(Spawn)()
 {
@@ -383,7 +383,7 @@ void CBreakable::__MAKE_VHOOK(Precache)()
 		pGibName = STRING(m_iszGibModel);
 	}
 
-	if (pGibName != NULL)
+	if (pGibName)
 	{
 		m_idShard = PRECACHE_MODEL((char *)pGibName);
 	}
@@ -678,7 +678,12 @@ void CBreakable::Die()
 
 	// The more negative pev->health, the louder
 	// the sound should be.
+	
+#ifdef REGAMEDLL_FIXES
+	fvol = RANDOM_FLOAT(0.85f, 1.0f) + (Q_abs(pev->health) / 100.0f);
+#else
 	fvol = RANDOM_FLOAT(0.85f, 1.0f) + (Q_abs(int(pev->health)) / 100.0f);
+#endif
 
 	if (fvol > 1.0f)
 		fvol = 1.0f;
@@ -695,7 +700,7 @@ void CBreakable::Die()
 		}
 		cFlag = BREAK_GLASS;
 
-		if (TheBots != NULL)
+		if (TheBots)
 		{
 			TheBots->OnEvent(EVENT_BREAK_GLASS, this);
 		}
@@ -710,7 +715,7 @@ void CBreakable::Die()
 		}
 		cFlag = BREAK_WOOD;
 
-		if (TheBots != NULL)
+		if (TheBots)
 		{
 			TheBots->OnEvent(EVENT_BREAK_WOOD, this);
 		}
@@ -727,7 +732,7 @@ void CBreakable::Die()
 		}
 		cFlag = BREAK_METAL;
 
-		if (TheBots != NULL)
+		if (TheBots)
 		{
 			TheBots->OnEvent(EVENT_BREAK_METAL, this);
 		}
@@ -743,7 +748,7 @@ void CBreakable::Die()
 		}
 		cFlag = BREAK_FLESH;
 
-		if (TheBots != NULL)
+		if (TheBots)
 		{
 			TheBots->OnEvent(EVENT_BREAK_FLESH, this);
 		}
@@ -760,7 +765,7 @@ void CBreakable::Die()
 		}
 		cFlag = BREAK_CONCRETE;
 
-		if (TheBots != NULL)
+		if (TheBots)
 		{
 			TheBots->OnEvent(EVENT_BREAK_CONCRETE, this);
 		}
@@ -857,8 +862,8 @@ int CBreakable::__MAKE_VHOOK(DamageDecal)(int bitsDamageType)
 	return CBaseEntity::DamageDecal(bitsDamageType);
 }
 
-LINK_ENTITY_TO_CLASS(func_pushable, CPushable, CCSPushable);
-IMPLEMENT_SAVERESTORE(CPushable, CBreakable);
+LINK_ENTITY_TO_CLASS(func_pushable, CPushable, CCSPushable)
+IMPLEMENT_SAVERESTORE(CPushable, CBreakable)
 
 void CPushable::__MAKE_VHOOK(Spawn)()
 {

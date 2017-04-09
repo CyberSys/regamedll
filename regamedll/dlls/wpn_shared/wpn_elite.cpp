@@ -2,7 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "precompiled.h"
 
-LINK_ENTITY_TO_CLASS(weapon_elite, CELITE, CCSELITE);
+LINK_ENTITY_TO_CLASS(weapon_elite, CELITE, CCSELITE)
 
 void CELITE::__MAKE_VHOOK(Spawn)()
 {

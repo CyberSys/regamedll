@@ -2,7 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "precompiled.h"
 
-LINK_ENTITY_TO_CLASS(weapon_ak47, CAK47, CCSAK47);
+LINK_ENTITY_TO_CLASS(weapon_ak47, CAK47, CCSAK47)
 
 void CAK47::__MAKE_VHOOK(Spawn)()
 {

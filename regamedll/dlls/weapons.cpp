@@ -472,8 +472,8 @@ void W_Precache()
 	PRECACHE_SOUND("weapons/generic_reload.wav");
 }
 
-IMPLEMENT_SAVERESTORE(CBasePlayerItem, CBaseAnimating);
-IMPLEMENT_SAVERESTORE(CBasePlayerWeapon, CBasePlayerItem);
+IMPLEMENT_SAVERESTORE(CBasePlayerItem, CBaseAnimating)
+IMPLEMENT_SAVERESTORE(CBasePlayerWeapon, CBasePlayerItem)
 
 void CBasePlayerItem::__MAKE_VHOOK(SetObjectCollisionBox)()
 {
@@ -1597,8 +1597,8 @@ float CBasePlayerWeapon::GetNextAttackDelay(float delay)
 	return flNextAttack;
 }
 
-LINK_ENTITY_TO_CLASS(weaponbox, CWeaponBox, CCSWeaponBox);
-IMPLEMENT_SAVERESTORE(CWeaponBox, CBaseEntity);
+LINK_ENTITY_TO_CLASS(weaponbox, CWeaponBox, CCSWeaponBox)
+IMPLEMENT_SAVERESTORE(CWeaponBox, CBaseEntity)
 
 void CWeaponBox::__MAKE_VHOOK(Precache)()
 {
@@ -2441,7 +2441,7 @@ void CArmoury::__MAKE_VHOOK(SetObjectCollisionBox)()
 }
 #endif
 
-LINK_ENTITY_TO_CLASS(armoury_entity, CArmoury, CCSArmoury);
+LINK_ENTITY_TO_CLASS(armoury_entity, CArmoury, CCSArmoury)
 
 // true - keep the amount of bpammo
 // false - let take away bpammo
