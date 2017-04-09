@@ -527,6 +527,12 @@ LINK_HOOK_CLASS_VOID_CHAIN(CBasePlayer, Radio, (const char *msg_id, const char *
 
 void EXT_FUNC CBasePlayer::__API_HOOK(Radio)(const char *msg_id, const char *msg_verbose, short pitch, bool showIcon)
 {
+#ifdef REGAMEDLL_FIXES
+	// Writing NULL string to engine is invalid
+	if( !msg_id )
+		return;
+#endif
+
 	// Spectators don't say radio messages.
 	if (!IsPlayer())
 		return;
