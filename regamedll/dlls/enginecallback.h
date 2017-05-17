@@ -112,7 +112,18 @@ inline void *GET_PRIVATE(edict_t *pent)
 #define WRITE_LONG			(*g_engfuncs.pfnWriteLong)
 #define WRITE_ANGLE			(*g_engfuncs.pfnWriteAngle)
 #define WRITE_COORD			(*g_engfuncs.pfnWriteCoord)
-#define WRITE_STRING			(*g_engfuncs.pfnWriteString)
+inline void WRITE_STRING( const char *sz )
+{
+	// REMOVE THIS WHEN XASH3D WILL ALLOW WRITING NULL POINTERS
+	if( !sz )
+	{
+		g_engfuncs.pfnWriteString( "" );
+	}
+	else
+	{
+		g_engfuncs.pfnWriteString( sz );
+	}
+}
 #define WRITE_ENTITY			(*g_engfuncs.pfnWriteEntity)
 #define CVAR_REGISTER			(*g_engfuncs.pfnCVarRegister)
 #define CVAR_GET_FLOAT			(*g_engfuncs.pfnCVarGetFloat)
