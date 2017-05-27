@@ -1488,7 +1488,7 @@ void CCSBotManager::SetRadioMessageTimestamp(GameEventType event, int teamID)
 		return;
 
 	int i = (teamID == TERRORIST) ? 0 : 1;
-	m_radioMsgTimestamp[ event - 1 ][ i ] = gpGlobals->time;
+	m_radioMsgTimestamp[ event - EVENT_START_RADIO_1 ][ i ] = gpGlobals->time;
 }
 
 // Reset all radio message timestamps

@@ -546,7 +546,7 @@ void CTriggerCDAudio::__MAKE_VHOOK(Touch)(CBaseEntity *pOther)
 		return;
 	}
 
-	PlayTrack();
+	PlayTrack(pOther->edict());
 }
 
 void CTriggerCDAudio::__MAKE_VHOOK(Spawn)()
@@ -556,7 +556,7 @@ void CTriggerCDAudio::__MAKE_VHOOK(Spawn)()
 
 void CTriggerCDAudio::__MAKE_VHOOK(Use)(CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value)
 {
-	PlayTrack();
+	PlayTrack(pCaller->edict());
 }
 
 #ifdef REGAMEDLL_FIXES
@@ -593,11 +593,8 @@ const char *g_szMP3trackFileMap[] =
 };
 #endif
 
-void PlayCDTrack(int iTrack)
+void PlayCDTrack(edict_t *pClient, int iTrack)
 {
-	// manually find the single player.
-	edict_t *pClient = INDEXENT(1);
-
 	// Can't play if the client is not connected!
 	if (!pClient)
 		return;
@@ -629,9 +626,9 @@ void PlayCDTrack(int iTrack)
 }
 
 // only plays for ONE client, so only use in single play!
-void CTriggerCDAudio::PlayTrack()
+void CTriggerCDAudio::PlayTrack(edict_t *pEdict)
 {
-	PlayCDTrack(int(pev->health));
+	PlayCDTrack(pEdict, int(pev->health));
 
 	SetTouch(NULL);
 	UTIL_Remove(this);
@@ -663,7 +660,7 @@ void CTargetCDAudio::__MAKE_VHOOK(Spawn)()
 
 void CTargetCDAudio::__MAKE_VHOOK(Use)(CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value)
 {
-	Play();
+	Play(pCaller->edict());
 }
 
 // only plays for ONE client, so only use in single play!
@@ -680,13 +677,13 @@ void CTargetCDAudio::__MAKE_VHOOK(Think)()
 
 	if ((pClient->v.origin - pev->origin).Length() <= pev->scale)
 	{
-		Play();
+		Play(pClient);
 	}
 }
 
-void CTargetCDAudio::Play()
+void CTargetCDAudio::Play(edict_t *pEdict)
 {
-	PlayCDTrack(int(pev->health));
+	PlayCDTrack(pEdict, int(pev->health));
 	UTIL_Remove(this);
 }
 
@@ -1729,6 +1726,11 @@ void CBuyZone::__MAKE_VHOOK(Spawn)()
 
 void CBuyZone::BuyTouch(CBaseEntity *pOther)
 {
+#ifdef REGAMEDLL_ADD
+	if (buytime.value == 0.0f)
+		return;
+#endif	
+	
 	if (!pOther->IsPlayer())
 		return;
 

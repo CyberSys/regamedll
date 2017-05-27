@@ -49,6 +49,10 @@ bool EXT_FUNC CCSPlayer::JoinTeam(TeamName team)
 		if (pPlayer->m_iTeam == SPECTATOR)
 			return false;
 
+		// not necessary to trigger death event, just died quietly
+		pPlayer->pev->deadflag = DEAD_DEAD;
+		pPlayer->pev->health = 0;
+
 		pPlayer->RemoveAllItems(TRUE);
 		pPlayer->m_bHasC4 = false;
 
@@ -88,8 +92,7 @@ bool EXT_FUNC CCSPlayer::JoinTeam(TeamName team)
 
 			pPlayer->pev->solid = SOLID_NOT;
 			pPlayer->pev->movetype = MOVETYPE_NOCLIP;
-			pPlayer->pev->effects = EF_NODRAW;
-			pPlayer->pev->effects |= EF_NOINTERP;
+			pPlayer->pev->effects = (EF_NODRAW | EF_NOINTERP);
 			pPlayer->pev->takedamage = DAMAGE_NO;
 			pPlayer->pev->deadflag = DEAD_DEAD;
 			pPlayer->pev->velocity = g_vecZero;
@@ -99,6 +102,13 @@ bool EXT_FUNC CCSPlayer::JoinTeam(TeamName team)
 			pPlayer->m_iHostagesKilled = 0;
 			pPlayer->m_fDeadTime = 0;
 			pPlayer->has_disconnected = false;
+
+			if (pPlayer->m_bJustConnected) {
+				pPlayer->m_iObserverLastMode = OBS_ROAMING;
+				pPlayer->m_iObserverC4State = 0;
+				pPlayer->m_bObserverHasDefuser = false;
+				pPlayer->SetObserverAutoDirector(false);
+			}
 
 			pPlayer->m_iJoiningState = GETINTOGAME;
 			pPlayer->SendItemStatus();
@@ -131,7 +141,6 @@ bool EXT_FUNC CCSPlayer::JoinTeam(TeamName team)
 	pPlayer->m_iTeam = team;
 	pPlayer->TeamChangeUpdate();
 
-	CSGameRules()->CheckWinConditions();
 	return true;
 }
 

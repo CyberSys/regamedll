@@ -3642,7 +3642,7 @@ void CBasePlayer::PlayerDeathThink()
 
 #ifdef REGAMEDLL_FIXES
 	// do not make a corpse if the player goes to respawn.
-	if (pev->deadflag != DEAD_RESPAWNABLE && forcerespawn.value <= 0)
+	if (pev->deadflag != DEAD_RESPAWNABLE)
 #endif
 	{
 		// if the player has been dead for one second longer than allowed by forcerespawn,
@@ -3660,37 +3660,46 @@ void CBasePlayer::PlayerDeathThink()
 	// wait for all buttons released
 	if (pev->deadflag == DEAD_DEAD && m_iTeam != UNASSIGNED && m_iTeam != SPECTATOR)
 	{
-#ifdef REGAMEDLL_ADD
-		// wait for any button down, or mp_forcerespawn is set and the respawn time is up
-		if (forcerespawn.value > 0 && gpGlobals->time > (m_fDeadTime + forcerespawn.value))
-		{
-			respawn(pev, FALSE);
-			pev->button = 0;
-			pev->nextthink = -1;
-			return;
-		}
-#endif
 		if (fAnyButtonDown)
 			return;
 
 		if (g_pGameRules->FPlayerCanRespawn(this))
 		{
-			pev->deadflag = DEAD_RESPAWNABLE;
+#ifdef REGAMEDLL_ADD
+			if (forcerespawn.value <= 0 || (m_iTeam != CT && m_iTeam != TERRORIST))
+#endif
+			{
+				pev->deadflag = DEAD_RESPAWNABLE;
 
-			if (CSGameRules()->IsMultiplayer())
-				CSGameRules()->CheckWinConditions();
+				if (CSGameRules()->IsMultiplayer())
+					CSGameRules()->CheckWinConditions();
+			}
 		}
 
 		pev->nextthink = gpGlobals->time + 0.1f;
 		return;
 	}
 
-	if (pev->deadflag == DEAD_RESPAWNABLE)
+#ifdef REGAMEDLL_ADD
+	if (forcerespawn.value <= 0)
+#endif
 	{
-		// don't copy a corpse if we're in deathcam.
-		respawn(pev, FALSE);
-		pev->button = 0;
-		pev->nextthink = -1;
+		if (pev->deadflag == DEAD_RESPAWNABLE)
+		{
+#ifdef REGAMEDLL_FIXES
+			if (IsObserver() && (m_afPhysicsFlags & PFLAG_OBSERVER) && (m_iTeam == UNASSIGNED || m_iTeam == SPECTATOR))
+				return;
+
+			// Player cannot respawn while in the Choose Appearance menu
+			if (m_iMenu == Menu_ChooseAppearance || m_iJoiningState == SHOWTEAMSELECT)
+				return;
+#endif
+
+			// don't copy a corpse if we're in deathcam.
+			respawn(pev, FALSE);
+			pev->button = 0;
+			pev->nextthink = -1;
+		}
 	}
 }
 
@@ -6376,7 +6385,12 @@ void OLD_CheckBuyZone(CBasePlayer *player)
 		while ((pSpot = UTIL_FindEntityByClassname(pSpot, pszSpawnClass)))
 		{
 			if ((pSpot->pev->origin - player->pev->origin).Length() < 200.0f)
+			{
 				player->m_signals.Signal(SIGNAL_BUY);
+#ifdef REGAMEDLL_FIXES
+				break;
+#endif
+			}
 		}
 	}
 }
@@ -6387,7 +6401,12 @@ void OLD_CheckBombTarget(CBasePlayer *player)
 	while ((pSpot = UTIL_FindEntityByClassname(pSpot, "info_bomb_target")))
 	{
 		if ((pSpot->pev->origin - player->pev->origin).Length() <= 256.0f)
+		{
 			player->m_signals.Signal(SIGNAL_BOMB);
+#ifdef REGAMEDLL_FIXES
+			break;
+#endif
+		}
 	}
 }
 
@@ -6397,7 +6416,12 @@ void OLD_CheckRescueZone(CBasePlayer *player)
 	while ((pSpot = UTIL_FindEntityByClassname(pSpot, "info_hostage_rescue")))
 	{
 		if ((pSpot->pev->origin - player->pev->origin).Length() <= 256.0f)
+		{
 			player->m_signals.Signal(SIGNAL_RESCUE);
+#ifdef REGAMEDLL_FIXES
+			break;
+#endif
+		}
 	}
 }
 
@@ -6405,8 +6429,14 @@ void CBasePlayer::HandleSignals()
 {
 	if (CSGameRules()->IsMultiplayer())
 	{
-		if (!CSGameRules()->m_bMapHasBuyZone)
-			OLD_CheckBuyZone(this);
+		
+#ifdef REGAMEDLL_ADD
+		if (buytime.value != 0.0f)
+#endif
+		{			
+			if (!CSGameRules()->m_bMapHasBuyZone)
+				OLD_CheckBuyZone(this);
+		}
 
 		if (!CSGameRules()->m_bMapHasBombZone)
 			OLD_CheckBombTarget(this);
@@ -8291,6 +8321,11 @@ void CBasePlayer::SpawnClientSideCorpse()
 		return;
 #endif
 
+#ifdef REGAMEDLL_ADD
+	if (forcerespawn.value > 0.0f)
+		return;
+#endif
+
 	char *infobuffer = GET_INFO_BUFFER(edict());
 	char *pModel = GET_KEY_VALUE(infobuffer, "model");
 
@@ -9767,15 +9802,12 @@ void CBasePlayer::PlayerRespawnThink()
 	if (pev->deadflag < DEAD_DYING)
 		return;
 
-	if (forcerespawn.value)
+	if (forcerespawn.value && gpGlobals->time > (CSPlayer()->m_flRespawnPending + forcerespawn.value))
 	{
-		if (gpGlobals->time > (CSPlayer()->m_flRespawnPending + forcerespawn.value))
-		{
-			Spawn();
-			pev->button = 0;
-			pev->nextthink = -1;
-			return;
-		}
+		Spawn();
+		pev->button = 0;
+		pev->nextthink = -1;
+		return;
 	}
 #endif
 }
