@@ -13,6 +13,7 @@ C_DLLEXPORT void WINAPI GiveFnptrsToDll(enginefuncs_t *pEnginefuncsTable, global
 {
 	Q_memcpy(&g_engfuncs, pEnginefuncsTable, sizeof(enginefuncs_t));
 	gpGlobals = pGlobals;
+	g_iXashEngineBuildNumber = CVAR_GET_FLOAT( "build" ); // 0 for old builds or GoldSrc
 
 	Regamedll_Game_Init();
 }

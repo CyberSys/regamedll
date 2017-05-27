@@ -45,6 +45,157 @@ int ExtractBbox(void *pmodel, int sequence, float *mins, float *maxs)
 	return 1;
 }
 
+void Anim_VectorTransform(const vec_t *v, float (*in)[4], vec_t *out)
+{
+	out[0] = v[0] * in[0][0] + v[1] * in[0][1] + v[2] * in[0][2] + in[0][3];
+	out[1] = v[0] * in[1][0] + v[1] * in[1][1] + v[2] * in[1][2] + in[1][3];
+	out[2] = v[0] * in[2][0] + v[1] * in[2][1] + v[2] * in[2][2] + in[2][3];
+}
+
+void StudioDrawBones( studiohdr_t *hdr, edict_t *e )
+{
+	mstudiobone_t	*pbones = (mstudiobone_t *) ((byte *)hdr + hdr->boneindex);
+	Vector		point;
+
+	for( int i = 0; i < hdr->numbones; i++ )
+	{
+		if( pbones[i].parent >= 0 )
+		{
+			Tri->Color4f( 0, 0.7f, 0, 1 );
+			Tri->Begin( TRI_LINES );
+
+			GET_BONE_POSITION( e, pbones[i].parent, point, NULL );
+			Tri->Vertex3fv( point );
+
+			GET_BONE_POSITION( e, i, point, NULL );
+			Tri->Vertex3fv( point );
+
+			Tri->End();
+
+			Tri->Color4f( 0, 1, 0.8f, 1 );
+			Tri->Begin( TRI_POINTS );
+
+			if( pbones[pbones[i].parent].parent != -1 )
+			{
+				GET_BONE_POSITION( e, pbones[i].parent, point, NULL );
+				Tri->Vertex3fv( point );
+			}
+
+			GET_BONE_POSITION( e, i, point, NULL );
+			Tri->Vertex3fv( point );
+			Tri->End();
+		}
+		else
+		{
+			// draw parent bone node
+			Tri->Color4ub( 255, 0, 0, 255 );
+			Tri->Begin( TRI_POINTS );
+
+			GET_BONE_POSITION( e, i, point, NULL );
+			Tri->Vertex3fv( point );
+			Tri->End();
+		}
+	}
+
+}
+
+
+void StudioDrawHulls(void *pmodel, void *model, edict_t *e )
+{
+	studiohdr_t *hdr = (studiohdr_t*)pmodel;
+
+	Tri->RenderMode( kRenderTransTexture );
+
+	//StudioDrawBones( hdr, e );
+
+	float hullcolor[8][3] =
+	{
+	{ 1.0f, 1.0f, 1.0f },
+	{ 1.0f, 0.5f, 0.5f },
+	{ 0.5f, 1.0f, 0.5f },
+	{ 1.0f, 1.0f, 0.5f },
+	{ 0.5f, 0.5f, 1.0f },
+	{ 1.0f, 0.5f, 1.0f },
+	{ 0.5f, 1.0f, 1.0f },
+	{ 1.0f, 1.0f, 1.0f },
+	};
+
+	float alpha = 0.5f;
+
+	mstudiobbox_t *pbboxes = (mstudiobbox_t *)((byte *)hdr + hdr->hitboxindex);
+
+	GET_BONE_POSITION( e, -1, NULL, NULL );
+
+	for( int i = 0; i < hdr->numhitboxes - 1; i++ )
+	{
+		Vector v[8], v2[8], bbmin, bbmax, origin, angles;
+
+		bbmin = pbboxes[i].bbmin;
+		bbmax = pbboxes[i].bbmax;
+		v[0][0] = bbmin[0];
+		v[0][1] = bbmax[1];
+		v[0][2] = bbmin[2];
+
+		v[1][0] = bbmin[0];
+		v[1][1] = bbmin[1];
+		v[1][2] = bbmin[2];
+
+		v[2][0] = bbmax[0];
+		v[2][1] = bbmax[1];
+		v[2][2] = bbmin[2];
+
+		v[3][0] = bbmax[0];
+		v[3][1] = bbmin[1];
+		v[3][2] = bbmin[2];
+
+		v[4][0] = bbmax[0];
+		v[4][1] = bbmax[1];
+		v[4][2] = bbmax[2];
+
+		v[5][0] = bbmax[0];
+		v[5][1] = bbmin[1];
+		v[5][2] = bbmax[2];
+
+		v[6][0] = bbmin[0];
+		v[6][1] = bbmax[1];
+		v[6][2] = bbmax[2];
+
+		v[7][0] = bbmin[0];
+		v[7][1] = bbmin[1];
+		v[7][2] = bbmax[2];
+
+		for( int j = 0; j < 8; j++ )
+		{
+			Anim_VectorTransform( v[j], (*g_pBoneTransform)[pbboxes[i].bone], v2[j] );
+		}
+
+		int k = (pbboxes[i].group % 8);
+
+		// set properly color for hull
+
+		Tri->Color4f( hullcolor[k][0], hullcolor[k][1], hullcolor[k][2], alpha );
+
+		Tri->Begin( TRI_QUAD_STRIP );
+		for( int j = 0; j < 10; j++ )
+			Tri->Vertex3fv( v2[j & 7] );
+		Tri->End( );
+
+		Tri->Begin( TRI_QUAD_STRIP );
+		Tri->Vertex3fv( v2[6] );
+		Tri->Vertex3fv( v2[0] );
+		Tri->Vertex3fv( v2[4] );
+		Tri->Vertex3fv( v2[2] );
+		Tri->End( );
+
+		Tri->Begin( TRI_QUAD_STRIP );
+		Tri->Vertex3fv( v2[1] );
+		Tri->Vertex3fv( v2[7] );
+		Tri->Vertex3fv( v2[3] );
+		Tri->Vertex3fv( v2[5] );
+		Tri->End( );
+	}
+}
+
 int LookupActivity(void *pmodel, entvars_t *pev, int activity)
 {
 	studiohdr_t *pstudiohdr = (studiohdr_t *)pmodel;
@@ -1137,6 +1288,8 @@ void SV_StudioSetupBones(model_t *pModel, float frame, int sequence, const vec_t
 	{
 		bool bCopy = true;
 		int gaitsequence = GetPlayerGaitsequence(pEdict);	// calc gait animation
+		// float gaitframe = GetPlayerGaitframe(pEdict);
+		// float subframe = gaitframe - int(gaitframe);
 
 		if (gaitsequence < 0 || gaitsequence >= g_pstudiohdr->numseq)
 			gaitsequence = 0;

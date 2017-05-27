@@ -75,6 +75,9 @@ typedef float vec_t;					// needed before including progdefs.h
 
 // Shared header describing protocol between engine and DLLs
 #include "eiface.h"
+#include "physint.h" // Xash3D Physic Extension
+#include "triangleapi.h" // TriAPI
+
 // Shared header between the client DLL and the game DLLs
 #include "cdll_dll.h"
 #include "extdef.h"

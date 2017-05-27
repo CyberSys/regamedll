@@ -40,6 +40,7 @@ typedef float& FloatRef;
 #include "archtypes.h"
 #include "scriptevent.h"
 #include "enginecallback.h"
+#include "physcallback.h" // Xash3D Physic Interface
 #include "entity_state.h"
 #include "nodes.h"
 #include "screenfade.h"

@@ -1075,3 +1075,80 @@ void EXT_FUNC OnFreeEntPrivateData(edict_t *pEnt)
 	}
 #endif
 }
+
+void StudioDrawHulls( void *pmodel, void *model, edict_t *e );
+void DrawDebugTriangles( void )
+{
+#ifdef _DEBUG
+	edict_t *pEdict = INDEXENT( 2 ); // skip local
+	for ( int i = 1; i < gpGlobals->maxClients; i++, pEdict++ )
+	{
+		if ( pEdict->free )	// Not in use
+			continue;
+
+		void *studiohdr = GET_MODEL_PTR( pEdict );
+
+		void *model = g_physfuncs.pfnGetModel( pEdict->v.modelindex );
+
+		if( !model || !studiohdr ) continue;
+
+		StudioDrawHulls( studiohdr, model, pEdict );
+	}
+#endif
+}
+
+server_physics_api_t g_physfuncs = {};
+physics_interface_t gPhysicsInterface =
+{
+	SV_PHYSICS_INTERFACE_VERSION,
+	NULL, // SV_CreateEntity
+	NULL, // SV_PhysicsEntity
+	NULL, // SV_LoadEntities
+	NULL, // SV_UpdatePlayerBaseVelocity
+	NULL, // SV_AllowSaveGame
+	NULL, // SV_TriggerTouch
+	NULL, // SV_CheckFeatures
+	DrawDebugTriangles, //DrawDebugTriangles,
+	NULL, // DrawNormalTriangles
+	NULL, // DrawOrthoTriangles
+	NULL, // ClipMoveToEntity
+	NULL, // ClipPMoveToEntity
+	NULL, // SV_EndFrame
+	NULL, // pfnCreateEntitiesInTransitionList
+	NULL, // pfnCreateEntitiesInRestoreList
+	NULL, // pfnAllocString
+	NULL, // pfnMakeString
+	NULL, // pfnGetString
+	NULL  // pfnRestoreDecal
+};
+
+extern "C" EXPORT int Server_GetPhysicsInterface( int iVersion, server_physics_api_t *pfuncsFromEngine, physics_interface_t *pFunctionTable )
+{
+	if ( !pFunctionTable || !pfuncsFromEngine || iVersion != SV_PHYSICS_INTERFACE_VERSION )
+	{
+		return FALSE;
+	}
+
+	size_t iExportSize = sizeof( server_physics_api_t );
+	size_t iImportSize = sizeof( physics_interface_t );
+
+	// NOTE: the very old versions NOT have information about current build in any case
+	if( g_iXashEngineBuildNumber <= 1910 )
+	{
+		ALERT( at_console, "old version of Xash3D was detected. Engine features was disabled.\n" );
+
+		// interface sizes for build 1905 and older
+		iExportSize = 28;
+		iImportSize = 24;
+	}
+
+	// copy new physics interface
+	memcpy( &g_physfuncs, pfuncsFromEngine, iExportSize );
+
+	// fill engine callbacks
+	memcpy( pFunctionTable, &gPhysicsInterface, iImportSize );
+
+	g_fPhysicInitialized = TRUE;
+
+	return TRUE;
+}

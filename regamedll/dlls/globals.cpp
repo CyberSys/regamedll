@@ -21,3 +21,5 @@ int gDisplayTitle;
 bool g_bIsCzeroGame = false;
 bool g_bAllowedCSBot = false;
 bool g_bHostageImprov = false;
+DLL_GLOBAL bool		g_fPhysicInitialized = FALSE;
+DLL_GLOBAL int		g_iXashEngineBuildNumber;

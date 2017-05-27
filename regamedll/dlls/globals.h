@@ -44,5 +44,7 @@ extern int gDisplayTitle;
 extern bool g_bIsCzeroGame;
 extern bool g_bAllowedCSBot;
 extern bool g_bHostageImprov;
+extern bool		g_fPhysicInitialized;
+extern int		g_iXashEngineBuildNumber;
 
 #endif // GLOBALS_H
